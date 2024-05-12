@@ -7,3 +7,7 @@ para poder ejecutar el programa tienes que instalar requeriments.txt
 2_coloqué ""pip install -r requirements.txt"" para instalar las dependencias 
 
 3_y ahora solo ejecute el programa con ""python3 tiny_tasks.py""
+
+
+
+

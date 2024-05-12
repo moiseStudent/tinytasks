@@ -1,0 +1,2 @@
+1. Agregar un archivo oculto donde se guarda la fecha de la ultima sesion
+2. La interfaz debe ser un modulo que pueda cargar a tiny task para usarlo

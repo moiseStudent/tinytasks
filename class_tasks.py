@@ -28,7 +28,7 @@ import datetime
 
 class Tiny_task: #* esta clase gestiona todo internamente
     
-    def factory_reset_tinytask(): #* esta funcion borra dos los archivos de assets para que se reinicie de fabrica el programa
+    def factory_reset_tinytask(self): #* esta funcion borra dos los archivos de assets para que se reinicie de fabrica el programa
         os.remove("assets.json")
         os.remove("assets2.json") 
 
@@ -74,8 +74,10 @@ class Tiny_task: #* esta clase gestiona todo internamente
                                                                                                                             #? el try es para que en el caso de que no haya "" en el diccionario ps no se detenga el programa
         
         n = 1    #* en esta parte se ordenan las tareas segun la clave que haya en la variable self.order_interface, por ahora solo estan las opciones por fecha y titulo 
-        self.tasks.sort( key = lambda x: x[self.order_interface])                                                      #! mañana tengo que convertir de alguna manera las fechas en objetos de la clase datetime para poder compararlas
-        string=""                                                                                                          #! mi idea es hacer que se guarde con el formato 2024/12/31 para luego convertir esa fecha/string a un objeto y luego de nuevo formatearla al imprimirla
+        self.tasks.sort( key = lambda x: x[self.order_interface])   
+                                                           #! mañana tengo que convertir de alguna manera las fechas en objetos de la clase datetime para poder compararlas
+        string=""    
+                                                                                                              #! mi idea es hacer que se guarde con el formato 2024/12/31 para luego convertir esa fecha/string a un objeto y luego de nuevo formatearla al imprimirla
         for i in self.tasks: #* bucle para sacar todo el contenido de la lista self.tasks
             if i["fecha"]!= "indefinido":
                 fecha_object = datetime.datetime.strptime(i["fecha"],("%Y/%m/%d"))#* aca se crea un objeto de la clase datetime y se coloca el string de la fecha y el formato de entrada
@@ -104,12 +106,3 @@ class Tiny_task: #* esta clase gestiona todo internamente
             input("Esa tarea no existe.\nPresiona enter para continuar.") #* si la tarea no existe 
                                             # identificar las tareas con numeros
         
-
-
-
-
-
-
-
-
-
