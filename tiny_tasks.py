@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 from colorama import Fore
 from class_tasks import Tiny_task
-from constant import *            #* coloque * para que se importen todas las constantes
+from constant import *           
 
 #?#######################################################################################################################
 
