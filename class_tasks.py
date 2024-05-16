@@ -29,29 +29,29 @@ import datetime
 class Tiny_task: #* esta clase gestiona todo internamente
     
     def factory_reset_tinytask(self): #* esta funcion borra dos los archivos de assets para que se reinicie de fabrica el programa
-        os.remove("assets.json")
-        os.remove("assets2.json") 
+        os.remove("data/task/assets.json")
+        os.remove("data/task/assets2.json") 
 
     def load(self):               #* esta funcion sirve para poder cargar todo el contenido del archivo assets1.json a la variable self.tasks
-        with open("assets.json","r") as assets:
+        with open("data/task/assets.json","r") as assets:
                 try:                              #? este try y except estan puestos para que si en el hipotetico caso de que alguien borre el contenido del archivo JSON entonces no deje de funcionar el programa
                     self.tasks = json.load(assets)
                 except (json.decoder.JSONDecodeError):
                     self.save()
 
     def save(self):               #* esta funcion sirve para guardar todo el contenido de la variable self.tasks dentro del archivo assets.json
-        with open("assets.json","w") as assets:
+        with open("data/task/assets.json","w") as assets:
             json.dump(self.tasks,assets)
 
     def load_order(self):         #*esta funcion hace lo mismo que la funcion load() solo carga el contenido del archivo assets2.json a order_interface
-        with open("assets2.json","r") as assets:
+        with open("data/task/assets2.json","r") as assets:
                 try:                              #* este try y except estan puestos para que si en el hipotetico caso de que alguien borre el contenido del archivo JSON entonces no deje de funcionar el programa
                     self.order_interface = json.load(assets)
                 except json.decoder.JSONDecodeError:
                     self.save_order()
 
     def save_order(self):         #*este tambien hace lo mismo pero con la variable self.order_interface
-        with open("assets2.json","w") as assets:
+        with open("data/task/assets2.json","w") as assets:
             json.dump(self.order_interface,assets)
 
     def __init__(self):           #* este metodo sirve para que la ruta de trabajo se cambie por la del archivo actual y tambien carga todo

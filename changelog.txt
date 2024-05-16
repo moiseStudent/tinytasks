@@ -1,0 +1,14 @@
+### Cosas por hacer en el programa ###
+
+1. Cambiar las rutas de los aarchivos de la data
+2. Crear una capa de compatibilidad entre la interfaz y las antiguas funciones
+3. Manenar el tiempo de forma separada, crear un modulo o clase capaz de manejar estas funciones
+
+
+### Funcionamiento ##
+1. Pedir titulo, descripcion y fecha para la tarea
+
+
+### Carga de tini taks ###
+
+1. En la carga de tiny task debe habe una funcion para cargar y ordenar la interfaz

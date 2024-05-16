@@ -1,7 +1,8 @@
 from abc import ABC
+import json
 import tkinter as tk
 import customtkinter
-import frame
+from . import frame
 
 ### Manage event
 
@@ -18,47 +19,96 @@ datos, ademas de crear el layout de la ventana junto con el layout de ingreso de
 ### Add taks to the list
 class AddTaskButtonEvent(ButtonEvent):
     
-    
     def __init__(self):
         super().__init__()
         
-    def __create_task(self):
-        """
-        #! Pedir el titulo de la tarea, el titulo tiene que tener un numero maximo de caracteres
-        #? Pedir la descripcion de la tarea, crear una ventana para el registro de estos datos
-        #* Pedir la fecha limite para la tarea
-        """
-        pass
+        ### List taks saved in a file ###
+        self.tasks = []
+        
+        ### Object with the tasks' data ###
+        self.data = {}
+        
+    #! Esta funcion no la debe hacer esta parte del prgorama
+    def __load(self):
+        with open("../data/task/assets.json","r") as assets:
 
-    def ___entry_data_layout(self):
-        pass
+            try:                             
+                self.tasks = json.load(assets)
+                
+            except (json.decoder.JSONDecodeError):
+                self.__save()
+
     
-    def check_entry_data(self):
+    def __save(self):
+        with open("data/task/assets.json","w") as assets:
+            json.dump(self.tasks,assets)
+    
+    def add_task(self, title="Esto es un titulo", content="", date="Undefine"):
+        self.__entry_data_layout()
+        
+        self.title = title
+        self.content = content
+        self.date = date
+        
+        ### Data Dictionary ###
+        self.data = {
+            
+            "title": self.title,
+            "details": self.content,
+            "data": self.date
+            
+            } 
+        
+        self.__save()   
+
+    def __entry_data_layout(self):
         
         root = customtkinter.CTk()
-        root.title("Esto seria una entrada de datos antes de poner el layout")
-        root.geometry("400x400")
+        root.title("Agregar nueva tarea")
+        root.geometry("420x420")
         
-        textbox = customtkinter.CTkTextbox(root)
-
-        textbox.insert("0.0", "new text to insert")  # insert at line 0 character 0
-        text = textbox.get("0.0", "end")  # get text from line 0 character 0 till the end
-        textbox.delete("0.0", "end")  # delete all text
-        textbox.configure(state="disabled")  # configure textbox to be read-only
+        #! Traducir al ingles
+        """
+        Configuramos las filas y columnas de la ventana raíz (root) usando grid_rowconfigure()
+        y grid_columnconfigure(). Establecemos weight=1 para indicar que las filas y columnas
+        deben expandirse y centrar los elementos.
+        """
+        """
+        root.grid_rowconfigure(0, weight=1)
+        root.grid_rowconfigure(1, weight=1)
+        root.grid_columnconfigure(0, weight=1)"""
         
-        self.textbox = customtkinter.CTkTextbox(master=root, width=400, corner_radius=0)
-        self.textbox.pack()
-        self.textbox.insert("0.0", "Some example text!\n" * 50)       
+        label = customtkinter.CTkLabel(
+            root,
+            text = "Ingrese el nombre de la tarea",
+            height = 20
+            )
         
+        label.grid(row=0, column=0, padx = 10, pady = 10)
+        
+        self.entry_data = customtkinter.CTkEntry(
+            
+            root,
+            width = 300,
+            height=30,
+            placeholder_text="Ingrese el nombre de la tarea"
+            )
+        
+        self.entry_data.grid(row=1, column=0)
+        
+        button = customtkinter.CTkButton(
+            root,
+            text = "Revisar datos",
+            command = self.get_entry_values
+        )
+        button.grid(row=2, column=0)
     
-        label = customtkinter.CTkLabel(root, text="Ingrese el nombre de la tarea")
-        label.pack()
-        
-        entry_data = customtkinter.CTkEntry(root, width=300, height=300, placeholder_text="Ingrese los datos")
-        entry_data.pack()
-        
-        btn = customtkinter.CTkButton(root, text="Agregar tarea", command = lambda: print(textbox.get("0.0", "end")))
-        btn.pack()
+    def get_entry_values(self):
+        value = self.entry_data.get()
+        print(f"Esto son los datos que hay actualmente en el entry: {value}")
+    
+    def check_entry_data(self):
+        pass
         
         
         

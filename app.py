@@ -1,7 +1,10 @@
+import os
+import json
+from datetime import datetime
 import tkinter as tk
 import customtkinter
-import frame
-from EventHandling import AddTaskButtonEvent
+from interface import frame
+from interface.EventHandling import AddTaskButtonEvent
 
 ### Theme default app
 customtkinter.set_appearance_mode('dark')
@@ -67,14 +70,17 @@ class Application():
         
     def __create_new_task(self):
         
-        AddTaskButtonEvent.check_entry_data()
+        #! Crea la tarea dentro de un file y hace el layout
+        AddTaskButtonEvent.add_task
+        
+        #! Crea el layout con los datos retornados
         self.my_frame.new_task(place=[2,0], text="Titulo de la tarea")
         
 
 ### app 
 root = customtkinter.CTk()
 
-logo = tk.PhotoImage(file="imagenes/logo.png")
+logo = tk.PhotoImage(file="interface/imagenes/logo.png")
 
 root.config(background='#222222')
 root.iconphoto(True, logo)
