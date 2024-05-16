@@ -1,5 +1,6 @@
 ### Scroll frame
 import customtkinter
+from EventHandling import ShowInfoTaskButtonEvent
 
 class ScrollableFrame(customtkinter.CTkScrollableFrame):
     
@@ -29,7 +30,13 @@ class Frame(customtkinter.CTkFrame):
         self.label.grid(row=self.place[0],column=self.place[1], padx=10, pady=10,sticky='sw')
         
         ### Button
-        self.button = customtkinter.CTkButton(self, text=" Ver detalles", fg_color="#19238C",text_color='#FCFEEE')
+        self.button = customtkinter.CTkButton(
+            self,
+            text = " Ver detalles",
+            fg_color = "#19238C",
+            text_color = '#FCFEEE',
+            command = ShowInfoTaskButtonEvent.show_info
+            )
         self.button.grid(row=self.place[0], column=self.place[1]+1, padx=10, pady=10, sticky='ns')
         
         ### Check list

@@ -58,7 +58,7 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure((0, 1), weight=1)
         self.grid_rowconfigure(0, weight=1)
 
-        self.checkbox_frame = MyCheckboxFrame(self, "Values", values=["value 1", "value 2", "value 3"])
+        self.checkbox_frame = MyCheckboxFrame(self, "Values", values=["Saludar", "value 2", "value 3"])
         self.checkbox_frame.grid(row=0, column=0, padx=10, pady=(10, 0), sticky="nsew")
         self.radiobutton_frame = MyRadiobuttonFrame(self, "Options", values=["option 1", "option 2"])
         self.radiobutton_frame.grid(row=0, column=1, padx=(0, 10), pady=(10, 0), sticky="nsew")
