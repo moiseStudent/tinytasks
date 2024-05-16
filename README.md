@@ -1,5 +1,7 @@
 # tinytasks
 
+## Actualmente sigo trabajando en la modificacion de este programa pronto estara listo
+
 para poder ejecutar el programa tienes que instalar requeriments.txt
 
 1_coloqué ""python3 -m venv tinytasks"" para poder crear el ambiente virtual 
