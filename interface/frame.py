@@ -14,7 +14,7 @@ class ScrollableFrame(customtkinter.CTkScrollableFrame):
     #! No pedir argumentos, debe ser entregados desde el layout que se crea en Event handling
     def new_task(self, place=[], text="Default"):
         
-        AddTaskButtonEvent.add_task()
+        AddTaskButtonEvent.add_task
         
         self.frame = Frame(self,place=place,text = text, width=400, fg_color='#2b2b2b')
         self.frame.grid(row=place[0], column=place[1], padx=20, pady=15, sticky='nsew')

@@ -71,7 +71,7 @@ class Application():
     def __create_new_task(self):
         
         #! Crea la tarea dentro de un file y hace el layout
-        AddTaskButtonEvent.add_task
+        AddTaskButtonEvent.add_task()
         
         #! Crea el layout con los datos retornados
         self.my_frame.new_task(place=[2,0], text="Titulo de la tarea")

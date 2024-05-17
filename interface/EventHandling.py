@@ -5,81 +5,43 @@ import customtkinter
 from . import frame
 
 ### Manage event
-
 class ButtonEvent(ABC):
     
     def __init__(self):
         pass
 
-
-"""
-Esta clase tiene que encargarse de hacer la tarea a nivel de datos y de recibir correcto los
-datos, ademas de crear el layout de la ventana junto con el layout de ingreso de datos.
-"""
 ### Add taks to the list
 class AddTaskButtonEvent(ButtonEvent):
     
     def __init__(self):
         super().__init__()
         
-        ### List taks saved in a file ###
-        self.tasks = []
+        self.tasks = [] ### List taks saved in a file 
+        self.data = {}  ### Object with the tasks' data
         
-        ### Object with the tasks' data ###
-        self.data = {}
+    def add_task(self):
         
-    #! Esta funcion no la debe hacer esta parte del prgorama
-    def __load(self):
-        with open("../data/task/assets.json","r") as assets:
-
-            try:                             
-                self.tasks = json.load(assets)
-                
-            except (json.decoder.JSONDecodeError):
-                self.__save()
-
-    
-    def __save(self):
-        with open("data/task/assets.json","w") as assets:
-            json.dump(self.tasks,assets)
-    
-    def add_task(self, title="Esto es un titulo", content="", date="Undefine"):
+        ### Entry data user for task ###
         self.__entry_data_layout()
         
-        self.title = title
-        self.content = content
-        self.date = date
-        
-        ### Data Dictionary ###
-        self.data = {
-            
-            "title": self.title,
-            "details": self.content,
-            "data": self.date
-            
-            } 
-        
-        self.__save()   
 
+    def __save(self):
+        with open("data/task/assets.json","w") as assets:
+            json.dump(self.tasks,assets)     
+    
+        
     def __entry_data_layout(self):
         
-        root = customtkinter.CTk()
-        root.title("Agregar nueva tarea")
-        root.geometry("420x420")
+        self.root = customtkinter.CTk()
+        self.root.title("Agregar nueva tarea")
+        self.root.geometry("420x420")
         
-        #! Traducir al ingles
-        """
-        Configuramos las filas y columnas de la ventana raíz (root) usando grid_rowconfigure()
-        y grid_columnconfigure(). Establecemos weight=1 para indicar que las filas y columnas
-        deben expandirse y centrar los elementos.
-        """
-        """
-        root.grid_rowconfigure(0, weight=1)
-        root.grid_rowconfigure(1, weight=1)
-        root.grid_columnconfigure(0, weight=1)"""
+        self.textbox = customtkinter.CTkTextbox(master=self.root, width=400, corner_radius=0)
+        self.textbox.grid(row=4, column=0, sticky="nsew")
+        
         
         label = customtkinter.CTkLabel(
-            root,
+            self.root,
             text = "Ingrese el nombre de la tarea",
             height = 20
             )
@@ -88,7 +50,7 @@ class AddTaskButtonEvent(ButtonEvent):
         
         self.entry_data = customtkinter.CTkEntry(
             
-            root,
+            self.root,
             width = 300,
             height=30,
             placeholder_text="Ingrese el nombre de la tarea"
@@ -97,15 +59,52 @@ class AddTaskButtonEvent(ButtonEvent):
         self.entry_data.grid(row=1, column=0)
         
         button = customtkinter.CTkButton(
-            root,
-            text = "Revisar datos",
+            self.root,
+            text = "Agregar tarea",
             command = self.get_entry_values
         )
         button.grid(row=2, column=0)
     
+    
+    def __create_task_layout(self):
+        
+        ### extrac place of data
+        with open("data/task/assets.json", "r") as d:
+            self.t = json.load(d)
+            self.t = self.t[0]
+            self.t = self.t['place']
+            self.t = self.t['row']
+        print(self.t)
+        """
+        self.frame = frame.Frame(self,place= place,text = text, width=400, fg_color='#2b2b2b')
+        self.frame.grid(row=place[0], column=place[1], padx=20, pady=15, sticky='nsew')
+        """
     def get_entry_values(self):
-        value = self.entry_data.get()
-        print(f"Esto son los datos que hay actualmente en el entry: {value}")
+        
+        self.title_task = self.entry_data.get()
+        self.details_task = self.textbox.get("0.0", "end")
+        
+        ### Data Dictionary ###
+        self.data = {
+            
+            "place": {'row':'la row funciona','column':1},
+            "title": self.title_task,
+            "details": self.details_task,
+            "date": "Sin fecha por los momentos" 
+            
+            }
+        
+        ### Add task at file ###
+        self.tasks.append(self.data)
+        self.__save()
+        
+        self.__create_task_layout()
+        
+        print(self.title_task, self.details_task)
+
+    
+    
+    
     
     def check_entry_data(self):
         pass
