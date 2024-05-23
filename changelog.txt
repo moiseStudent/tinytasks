@@ -1,13 +1,16 @@
+### Requistro de cambios ###
+
+1. Se creo una interfaz con customtkinter
+2. Se agrego modularizacion al codigo existente
+3. Se creo un modulo para manejar los frames y los eventos
+
 ### Cosas por hacer en el programa ###
 
-
-3. Manenar el tiempo de forma separada, crear un modulo o clase capaz de manejar estas funciones
-
-
-### Funcionamiento ##
-1. Pedir titulo, descripcion y fecha para la tarea
-
-
-### Carga de tini taks ###
-
-1. En la carga de tiny task debe habe una funcion para cargar y ordenar la interfaz
+1. Implementar los iconos en los botones
+2. Implementar las opciones de configuracion
+3. Implementar una opcion para poder guardar tus datos en drive
+4. Crear un modulo para poder manejar el tiempo de forma correcta
+5. Crear un modulo 'dinamicos' para agregar sonido a los botons cuanse esten en on_click
+6. Funcion para cargar los datos de las tareas y posicionarlas en el layout
+7. Funcion eliminar tareas, modifica el place.json para poder posicionarlas en el layout
+8. Correccion de errores
