@@ -6,7 +6,7 @@ Tiny Task es una aplicacion de gestion de tareas sencilla hecha con python.
 ## Como instalar Tiny Task
 1. coloqué `python3 -m venv tinytasks` para poder crear el entorno virtual (Recomendado)
 2. Instale las dependencias con `pip install -r requirements.txt`
-3. Ahora solo ejecute el programa con `python3 tiny_tasks.py`
+3. Ahora solo ejecute el programa con `python3 app.py`
 
 
 ### Actualmente el proyecto de **Tiny Task** no esta terminado
