@@ -3,6 +3,27 @@ import json
 import tkinter as tk
 import customtkinter
 from . import frame
+from time import sleep
+
+class ScrollBarFrame:
+    
+    def __init__(self, windows):
+        self.windows = windows
+        
+        ### Barra de scroll
+        self.my_frame = frame.ScrollableFrame(
+            master=self.windows,
+            width=500,
+            height=200,
+            corner_radius=0,
+            fg_color="#333333"
+            )
+        
+        self.my_frame.grid(row=0, column=0, sticky="nsew")
+        self.my_frame.new_task(place=[1,0], text="Titulo de la tarea")
+    
+    def add_task_layout(self, place):
+        self.my_frame.new_task(place=place, text="Titulo de la tarea")
 
 ### Manage event
 class ButtonEvent(ABC):
@@ -11,20 +32,19 @@ class ButtonEvent(ABC):
         pass
 
 ### Add taks to the list
-class AddTaskButtonEvent(ButtonEvent):
+class AddTaskButtonEvent():
     
     def __init__(self):
-        super().__init__()
         
         self.tasks = [] ### List taks saved in a file 
         self.data = {}  ### Object with the tasks' data
         
-    def add_task(self):
+    def add_task(self, funcion_prueba = None):
         
         ### Entry data user for task ###
         self.__entry_data_layout()
+        self.funcion = funcion_prueba
         
-
     def __save(self):
         with open("data/task/assets.json","w") as assets:
             json.dump(self.tasks,assets)     
@@ -61,33 +81,50 @@ class AddTaskButtonEvent(ButtonEvent):
         button = customtkinter.CTkButton(
             self.root,
             text = "Agregar tarea",
-            command = self.get_entry_values
+            
+            command = lambda: [
+                
+                self.get_entry_values,
+                self.__create_task_layout,
+                print("Se ha creado la tarea de forma exitosa."),
+                self.close_windows()
+                ]
         )
         button.grid(row=2, column=0)
     
     
     def __create_task_layout(self):
         
-        ### extrac place of data
-        with open("data/task/assets.json", "r") as d:
-            self.t = json.load(d)
-            self.t = self.t[0]
-            self.t = self.t['place']
-            self.t = self.t['row']
-        print(self.t)
-        """
-        self.frame = frame.Frame(self,place= place,text = text, width=400, fg_color='#2b2b2b')
-        self.frame.grid(row=place[0], column=place[1], padx=20, pady=15, sticky='nsew')
-        """
+        ### Get place of file
+        with open("data/task/assets.json", "r") as asserts:
+            self.place = json.load(asserts)
+            self.place = self.place[0] # In this part of data is the place of layout
+            self.place = self.place['place']
+        print(self.place)
+        
+        self.funcion(place=[2,0], text="Esta esta hecha desde otro sitio")
+        ### Instance of frame ###
+        self.frame = frame.Frame(
+            self,place= [self.place['row'], self.place['column']],
+            text = "Titulo de la tarea",
+            width=400,
+            fg_color='#2b2b2b'
+            )
+        
+       # self.frame.grid(row=3, column=0, padx=20, pady=15, sticky='nsew')
+        
+       # self.frame(place=[2,0], text="Titulo de la tarea")
+        
     def get_entry_values(self):
         
+        ### Get data of input layout ###
         self.title_task = self.entry_data.get()
         self.details_task = self.textbox.get("0.0", "end")
         
         ### Data Dictionary ###
         self.data = {
             
-            "place": {'row':'la row funciona','column':1},
+            "place": {'row':2,'column':0},
             "title": self.title_task,
             "details": self.details_task,
             "date": "Sin fecha por los momentos" 
@@ -97,25 +134,16 @@ class AddTaskButtonEvent(ButtonEvent):
         ### Add task at file ###
         self.tasks.append(self.data)
         self.__save()
-        
-        self.__create_task_layout()
-        
-        print(self.title_task, self.details_task)
+       # self.__create_task_layout()
+    
+    
+    def close_windows(self):
+        ### Decir al usuario que se cerrara la ventana
+        sleep(.5)
+        self.root.destroy()
 
-    
-    
-    
-    
     def check_entry_data(self):
-        pass
-        
-        
-        
-        
-
-        
-
-    
+        pass 
 
 ### Delete task in the list
 class DeleteTaskButtonEvent(ButtonEvent):
