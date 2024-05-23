@@ -72,13 +72,14 @@ class Application():
 
 ### app 
 root = customtkinter.CTk()
+try:
+    logo = tk.PhotoImage(file="interface/imagenes/logo.png")
 
-logo = tk.PhotoImage(file="interface/imagenes/logo.png")
+    root.config(background='#222222')
+    root.iconphoto(True, logo)
 
-root.config(background='#222222')
-root.iconphoto(True, logo)
-
+except:
+    pass
 
 app = Application(root, name="Tiny Task")
-
 root.mainloop()
